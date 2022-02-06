@@ -43,10 +43,8 @@ public class UserDaoImp implements UserDao {
       query2.setParameter("model",model);
       query2.setParameter("series",series);
 
-      //User result;
       try {
          return query2.getSingleResult();
-         //return result;
       }
       catch (NoResultException e) {
          return null;
