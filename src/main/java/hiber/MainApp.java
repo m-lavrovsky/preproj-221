@@ -35,7 +35,7 @@ public class MainApp {
 
       String model = "BMW";
       int series = 6;
-      User user = userService.getUserByCarModel(model,series);
+      User user = userService.getUserByCarModelAndSeries(model,series);
       if (user != null) {
          System.out.println("owner of " + model + " " + series + " Series has been found:");
          System.out.println("Id = "+user.getId());

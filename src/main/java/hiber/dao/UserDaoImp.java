@@ -27,28 +27,29 @@ public class UserDaoImp implements UserDao {
    @Override
    @SuppressWarnings("unchecked")
    public List<User> listUsers() {
-      TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
-      return query.getResultList();
+      return sessionFactory.getCurrentSession().createQuery("from User").getResultList();
    }
 
    @Override
    @SuppressWarnings("unchecked")
    public List<Car> listCars() {
-      TypedQuery<Car> query = sessionFactory.getCurrentSession().createQuery("from Car car where car.series = 6");
-      return query.getResultList();
+      return sessionFactory.getCurrentSession().createQuery("from Car").getResultList();
    }
 
    @Override
-   public User getUserByCarModel(String model, int series) {
-      TypedQuery<User> query2=sessionFactory.getCurrentSession().createQuery("SELECT car.user FROM Car car JOIN car.user where car.model = '"+
-                                                                              model+"' and car.series = "+series);
+   public User getUserByCarModelAndSeries(String model, int series) {
+      TypedQuery<User> query2=sessionFactory.getCurrentSession().createQuery("SELECT car.user FROM Car car JOIN car.user" +
+                                                                              " where car.model = :model and car.series = :series");
+      query2.setParameter("model",model);
+      query2.setParameter("series",series);
+
+      //User result;
       try {
-         User result = query2.getSingleResult();
-         return result;
+         return query2.getSingleResult();
+         //return result;
       }
       catch (NoResultException e) {
          return null;
       }
-
    }
 }
